@@ -27,6 +27,7 @@
             <groupId>org.ballerinalang</groupId>
             <artifactId>ballerina-cli</artifactId>
             <version>2201.5.0</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.wso2.carbon.esb.connector</groupId>
