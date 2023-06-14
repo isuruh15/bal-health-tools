@@ -60,7 +60,7 @@ modules = [
 [[package]]
 org = "isurusamaranayake"
 name = "health"
-version = "0.1.7"
+version = "0.1.10"
 dependencies = [
 	{org = "ballerina", name = "io"},
 	{org = "ballerina", name = "test"}

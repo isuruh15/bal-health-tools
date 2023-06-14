@@ -212,6 +212,8 @@ path = "resources/tool-lib/healthcare-codegen-tool-common-3.1.0-SNAPSHOT.jar"
 [[dependency]]
 path = "resources/tool-lib/fhir-ballerina-project-gen-tool-3.1.0-SNAPSHOT.jar"
 [[dependency]]
+path = "resources/tool-lib/ballerina-fhir-package-gen-tool-3.1.0-SNAPSHOT.jar"
+[[dependency]]
 path = "resources/tool-lib/maven-resolver-transport-http-1.7.0.jar"
 [[dependency]]
 path = "resources/tool-lib/transactions-jta-5.0.8.jar"
