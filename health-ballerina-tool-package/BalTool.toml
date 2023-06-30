@@ -233,4 +233,5 @@ path = "resources/tool-lib/org.jacoco.report-0.8.5.jar"
 path = "resources/tool-lib/transactions-5.0.8.jar"
 [[dependency]]
 path = "resources/tool-lib/okhttp-3.14.0.jar"
-
+[[dependency]]
+path = "resources/tool-lib/fhir_client_connectorGen-1.0-SNAPSHOT.jar"
