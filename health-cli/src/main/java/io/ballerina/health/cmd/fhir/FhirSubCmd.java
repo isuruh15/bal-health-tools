@@ -38,8 +38,12 @@ import org.wso2.healthcare.codegen.tooling.common.model.JsonConfigType;
 import org.wso2.healthcare.fhir.codegen.tool.lib.config.FHIRToolConfig;
 import org.wso2.healthcare.fhir.codegen.tool.lib.core.FHIRTool;
 import picocli.CommandLine;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 import java.io.*;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -77,6 +81,18 @@ public class FhirSubCmd implements BLauncherCmd {
 
     @CommandLine.Option(names = {"-c", "--config"}, description = "Path to the tool configuration file.")
     private String configPath;
+
+    @CommandLine.Option(names = {"-cp", "--capability-path"}, description = "Path to the capability statement file.")
+    private String capabilityStatementPath = "";
+
+    @CommandLine.Option(names = {"-b", "--base"}, description = "Base URL of the FHIR server.")
+    String baseUrl = "";
+
+    @CommandLine.Option(names = {"-n", "--name"}, description = "Connector name.")
+    String connectorName = "";
+
+    @CommandLine.Option(names = {"-a", "--auth"}, description = ("Authentication configuration mechanism should be oauth2, basic, epic or none"))
+    String authConfig = "none";
 
     @CommandLine.Parameters(description = "User name")
     private List<String> argList;
@@ -122,6 +138,25 @@ public class FhirSubCmd implements BLauncherCmd {
             printStream.println(argList);
             return;
         }
+
+        if (mode.equals("client")) {
+            String className = "org.wso2.health.tool.ClientConnectorGen";
+            String methodName = "generateConnector";
+
+            try {
+                Class<?> clazz = Class.forName(className);
+                Object instance = clazz.getDeclaredConstructor().newInstance();
+                Method method = clazz.getDeclaredMethod(methodName, String.class, String.class, String.class, String.class,String.class);
+                method.invoke(instance, capabilityStatementPath, baseUrl, connectorName, authConfig, outputPath);
+
+            } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | 
+                        InvocationTargetException | InstantiationException e) {
+                
+                printStream.println(Arrays.toString(e.getStackTrace()) + e.getMessage());
+            }
+            
+        }
+
         this.engageSubCommand(argList);
         HealthCmdUtils.exitError(exitWhenFinish);
 
